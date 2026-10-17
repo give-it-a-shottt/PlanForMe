@@ -1,0 +1,92 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+@import "tailwindcss";
+
+/* 디자인 토큰: MyDesign(myplan).md 기준 */
+@theme {
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+
+  --color-text-main: #111111;
+  --color-text-sub: #505050;
+  --color-text-sub-weak: #767676;
+  --color-text-disabled: #999999;
+
+  --color-icon-main: #2a2a37;
+  --color-icon-sub: #545461;
+  --color-icon-sub-weak: #81818d;
+  --color-icon-disabled: #a5a5af;
+
+  --color-line-light: #f1f1f5;
+  --color-line-regular: #e5e5ec;
+
+  --color-bg-default: #ffffff;
+  --color-bg-light: #f4f7f4;
+  --color-bg-regular: #f1f1f5;
+
+  --color-primary: #4caf50;
+  --color-primary-hover: #43a047;
+  --color-primary-soft: #e8f5e9;
+  --color-primary-glass: rgba(76, 175, 80, 0.14);
+  --color-primary-glow: rgba(76, 175, 80, 0.28);
+
+  --color-glass: rgba(255, 255, 255, 0.68);
+  --color-glass-elevated: rgba(255, 255, 255, 0.84);
+  --color-glass-sub: rgba(255, 255, 255, 0.45);
+  --color-glass-border: rgba(255, 255, 255, 0.8);
+  --color-glass-border-green: rgba(76, 175, 80, 0.4);
+
+  --shadow-glass: 0 8px 32px 0 rgba(17, 24, 39, 0.05);
+  --shadow-primary: 0 4px 16px 0 rgba(76, 175, 80, 0.28);
+
+  --radius-card: 16px;
+  --radius-inner: 12px;
+}
+
+body {
+  background:
+    radial-gradient(at 15% 15%, rgba(76, 175, 80, 0.12) 0px, transparent 50%),
+    radial-gradient(at 85% 80%, rgba(76, 175, 80, 0.08) 0px, transparent 50%),
+    #f4f7f4;
+  background-attachment: fixed;
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  letter-spacing: -0.025em;
+}
+
+/* 다크모드: 토큰 값만 바꾼다 */
+.dark {
+  color-scheme: dark;
+  --color-text-main: #f1f1f5;
+  --color-text-sub: #c4c4cc;
+  --color-text-sub-weak: #9a9aa5;
+  --color-text-disabled: #6e6e78;
+  --color-icon-main: #e5e5ec;
+  --color-icon-sub: #b4b4bd;
+  --color-icon-sub-weak: #8a8a95;
+  --color-line-light: #2a2e2b;
+  --color-line-regular: #3a3f3b;
+  --color-bg-default: #1b1f1c;
+  --color-bg-light: #121513;
+  --color-bg-regular: #262a27;
+  --color-primary-soft: rgba(76, 175, 80, 0.22);
+  --color-glass: rgba(30, 35, 31, 0.68);
+  --color-glass-elevated: rgba(36, 41, 37, 0.88);
+  --color-glass-sub: rgba(255, 255, 255, 0.06);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+}
+
+.dark body {
+  background:
+    radial-gradient(at 15% 15%, rgba(76, 175, 80, 0.16) 0px, transparent 50%),
+    radial-gradient(at 85% 80%, rgba(76, 175, 80, 0.1) 0px, transparent 50%),
+    #121513;
+}
+
+@utility glass-card {
+  background: var(--color-glass);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: var(--shadow-glass);
+  border-radius: var(--radius-card);
+}
