@@ -82,6 +82,43 @@ body {
     #121513;
 }
 
+/* 로딩 스켈레톤: 막대 위로 빛이 물결처럼 지나간다 (디자인 코드) */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(17, 24, 39, 0.06);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.dark .skeleton {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dark .skeleton::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    animation: none;
+  }
+}
+
 @utility glass-card {
   background: var(--color-glass);
   backdrop-filter: blur(16px) saturate(180%);

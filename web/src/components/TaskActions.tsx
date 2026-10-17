@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronRight, RotateCw } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useLayoutEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { addDays, fmtDot, fmtMonthDayShort, TYPE_LABEL, todayISO, UNIT, UNIT_LONG, weekdayName } from "@/lib/format";
 import type { ReplanSuggestion, Task } from "@/lib/types";
@@ -19,6 +19,15 @@ export function useTaskActions(onChanged: () => void) {
   const [replan, setReplan] = useState<ReplanState | null>(null);
   const [busy, setBusy] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+
+  // 화면을 떠나면(Activity로 숨겨지면) 열려 있던 바텀시트를 닫아 둔다
+  useLayoutEffect(
+    () => () => {
+      setProgressTask(null);
+      setReplan(null);
+    },
+    [],
+  );
 
   const showError = useCallback((e: unknown) => {
     setToast(e instanceof Error ? e.message : "요청에 실패했어요");
@@ -89,7 +98,7 @@ export function useTaskActions(onChanged: () => void) {
         {replan && <ReplanContent {...replan} busy={busy} onConfirm={confirmReplan} onKeep={() => setReplan(null)} />}
       </BottomSheet>
       {toast && (
-        <div className="fixed inset-x-0 top-4 z-[60] mx-auto w-fit max-w-[90%] rounded-full bg-text-main px-4 py-2 text-[13px] text-white shadow-glass">
+        <div className="fixed inset-x-0 top-4 z-60 mx-auto w-fit max-w-[90%] rounded-full bg-text-main px-4 py-2 text-[13px] text-white shadow-glass">
           {toast}
         </div>
       )}

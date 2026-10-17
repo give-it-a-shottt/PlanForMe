@@ -2,6 +2,7 @@
 
 import { Bell, Clock, Moon, User } from "lucide-react";
 import { useState } from "react";
+import { Bar, StatsSkeleton } from "@/components/Skeleton";
 import { Chip, ErrorBox, Toggle, TypeIcon, cx } from "@/components/ui";
 import { api, useApi } from "@/lib/api";
 import { useSettings } from "@/lib/settings";
@@ -45,34 +46,39 @@ export default function MyPage() {
             </Chip>
           </div>
         </div>
-        <p className="mt-4 text-[13px] text-text-sub">{period === "week" ? "이번 주 완수율" : "이번 달 완수율"}</p>
-        <div className="flex items-baseline gap-2">
-          <p className="text-[40px] font-semibold text-primary">{s?.rate ?? 0}%</p>
-          <p className="text-[12px] text-text-sub">
-            {diff === 0 ? `${prevName}와 같아요` : `${prevName}보다 ${Math.abs(diff)}%p ${diff > 0 ? "올랐어요" : "내렸어요"}`}
-          </p>
-        </div>
-        <div className="mt-4 flex h-32 items-end justify-between gap-2">
-          {s?.bars.map((b) => (
-            <div key={b.label} className="flex h-full flex-1 flex-col items-center gap-2">
-              <div className="relative w-full max-w-7 flex-1 overflow-hidden rounded-full bg-primary-glass">
-                <div
-                  className={cx("absolute inset-x-0 bottom-0 rounded-full", b.is_current ? "bg-primary" : "bg-primary/40")}
-                  style={{ height: `${b.rate}%` }}
-                />
-              </div>
-              <span className={cx("text-[12px]", b.is_current ? "font-semibold" : "text-text-sub-weak")}>{b.label}</span>
+        {!s && !error && <StatsSkeleton />}
+        {s && (
+          <>
+            <p className="mt-4 text-[13px] text-text-sub">{period === "week" ? "이번 주 완수율" : "이번 달 완수율"}</p>
+            <div className="flex items-baseline gap-2">
+              <p className="text-[40px] font-semibold text-primary">{s.rate}%</p>
+              <p className="text-[12px] text-text-sub">
+                {diff === 0 ? `${prevName}와 같아요` : `${prevName}보다 ${Math.abs(diff)}%p ${diff > 0 ? "올랐어요" : "내렸어요"}`}
+              </p>
             </div>
-          ))}
-        </div>
+            <div className="mt-4 flex h-32 items-end justify-between gap-2">
+              {s.bars.map((b) => (
+                <div key={b.label} className="flex h-full flex-1 flex-col items-center gap-2">
+                  <div className="relative w-full max-w-7 flex-1 overflow-hidden rounded-full bg-primary-glass">
+                    <div
+                      className={cx("absolute inset-x-0 bottom-0 rounded-full", b.is_current ? "bg-primary" : "bg-primary/40")}
+                      style={{ height: `${b.rate}%` }}
+                    />
+                  </div>
+                  <span className={cx("text-[12px]", b.is_current ? "font-semibold" : "text-text-sub-weak")}>{b.label}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </section>
 
       <section className="mt-8">
         <h2 className="text-[17px] font-semibold">누적 학습량</h2>
         <div className="mt-3 grid grid-cols-3 gap-2">
-          <Total type="book" label="책" value={`${s?.book_pages ?? 0}p`} />
-          <Total type="lecture" label="강의" value={`${s?.lectures ?? 0}강`} />
-          <Total type="routine" label="일반" value={`${s?.routines ?? 0}회`} />
+          <Total type="book" label="책" value={s && `${s.book_pages}p`} />
+          <Total type="lecture" label="강의" value={s && `${s.lectures}강`} />
+          <Total type="routine" label="일반" value={s && `${s.routines}회`} />
         </div>
       </section>
 
@@ -106,12 +112,12 @@ export default function MyPage() {
   );
 }
 
-function Total({ type, label, value }: { type: "book" | "lecture" | "routine"; label: string; value: string }) {
+function Total({ type, label, value }: { type: "book" | "lecture" | "routine"; label: string; value: string | null }) {
   return (
     <div className="glass-card rounded-inner! p-4">
       <TypeIcon type={type} />
       <p className="mt-3 text-[12px] text-text-sub">{label}</p>
-      <p className="text-[18px] font-semibold">{value}</p>
+      {value === null ? <Bar className="mt-1.5 h-5 w-14" /> : <p className="text-[18px] font-semibold">{value}</p>}
     </div>
   );
 }

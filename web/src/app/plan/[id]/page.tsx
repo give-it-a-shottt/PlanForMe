@@ -2,11 +2,12 @@
 
 import { Pause, Pencil, Play, RotateCw, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useLayoutEffect, useState } from "react";
 import { AppBar } from "@/components/AppBar";
 import { BottomSheet } from "@/components/BottomSheet";
 import { progressText } from "@/components/PlanCard";
 import { DateField, WeekdayPicker } from "@/components/PlanFields";
+import { PlanDetailSkeleton } from "@/components/Skeleton";
 import { useTaskActions } from "@/components/TaskActions";
 import { Badge, Button, ErrorBox, Field, ProgressBar, TextInput, TypeIcon, cx } from "@/components/ui";
 import { api, useApi } from "@/lib/api";
@@ -27,7 +28,14 @@ function recordBadge(t: Task) {
 export default function PlanDetailPage() {
   // URL 파라미터는 요청 시점에만 알 수 있어서 Suspense로 감싼다
   return (
-    <Suspense fallback={<AppBar title="플랜 상세" />}>
+    <Suspense
+      fallback={
+        <>
+          <AppBar title="플랜 상세" />
+          <PlanDetailSkeleton />
+        </>
+      }
+    >
       <PlanDetailView />
     </Suspense>
   );
@@ -43,6 +51,9 @@ function PlanDetailView() {
   const [editing, setEditing] = useState(false);
   const [busy, setBusy] = useState(false);
 
+  // 화면을 떠나면(Activity로 숨겨지면) 수정 시트를 닫아 둔다
+  useLayoutEffect(() => () => setEditing(false), []);
+
   if (error && !plan)
     return (
       <main>
@@ -52,7 +63,13 @@ function PlanDetailView() {
         </div>
       </main>
     );
-  if (!plan) return <AppBar title="플랜 상세" />;
+  if (!plan)
+    return (
+      <main>
+        <AppBar title="플랜 상세" />
+        <PlanDetailSkeleton />
+      </main>
+    );
 
   const unit = UNIT[plan.type];
   const records = showAll ? plan.records : plan.records.slice(0, 4);

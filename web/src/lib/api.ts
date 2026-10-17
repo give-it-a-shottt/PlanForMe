@@ -78,11 +78,17 @@ export const api = {
   stats: (period: "week" | "month") => request<Stats>(`/stats?period=${period}`),
 };
 
-/** 화면에서 데이터를 불러오는 공통 훅. key가 바뀌면 다시 불러온다. */
+/**
+ * 화면에서 데이터를 불러오는 공통 훅. key가 바뀌면 다시 불러온다.
+ * 결과를 key와 함께 저장해서, 다른 key(예: 다른 날짜)의 지난 데이터를 보여 주지 않는다.
+ * reload()는 같은 key로 다시 불러오므로 기존 데이터를 유지한 채 새로 고친다.
+ */
 export function useApi<T>(fetcher: () => Promise<T>, key: string) {
-  const [data, setData] = useState<T | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [result, setResult] = useState<{ key: string; data: T | null; error: string | null }>({
+    key,
+    data: null,
+    error: null,
+  });
   const [version, setVersion] = useState(0);
 
   const reload = useCallback(() => setVersion((v) => v + 1), []);
@@ -90,16 +96,13 @@ export function useApi<T>(fetcher: () => Promise<T>, key: string) {
   useEffect(() => {
     let cancelled = false;
     fetcher()
-      .then((d) => {
-        if (cancelled) return;
-        setData(d);
-        setError(null);
+      .then((data) => {
+        if (!cancelled) setResult({ key, data, error: null });
       })
       .catch((e: unknown) => {
-        if (!cancelled) setError(e instanceof Error ? e.message : "알 수 없는 오류");
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
+        if (cancelled) return;
+        const error = e instanceof Error ? e.message : "알 수 없는 오류";
+        setResult((prev) => ({ key, data: prev.key === key ? prev.data : null, error }));
       });
     return () => {
       cancelled = true;
@@ -108,5 +111,8 @@ export function useApi<T>(fetcher: () => Promise<T>, key: string) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, version]);
 
-  return { data, error, loading, reload };
+  const fresh = result.key === key;
+  const data = fresh ? result.data : null;
+  const error = fresh ? result.error : null;
+  return { data, error, loading: data === null && error === null, reload };
 }

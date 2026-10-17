@@ -3,6 +3,7 @@
 import { Bell, ChevronRight, RotateCw } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { HomeSkeleton } from "@/components/Skeleton";
 import { TaskCard } from "@/components/TaskCard";
 import { useTaskActions } from "@/components/TaskActions";
 import { Chip, Empty, ErrorBox, ProgressBar } from "@/components/ui";
@@ -22,7 +23,7 @@ export default function HomePage() {
   const actions = useTaskActions(reload);
   const [filter, setFilter] = useState<PlanType | "all">("all");
 
-  if (loading && !data) return <p className="px-5 pt-16 text-text-sub-weak">불러오는 중...</p>;
+  if (loading) return <HomeSkeleton />;
   if (error && !data)
     return (
       <div className="px-5 pt-16">

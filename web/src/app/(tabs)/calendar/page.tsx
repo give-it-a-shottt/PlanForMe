@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { TaskListSkeleton } from "@/components/Skeleton";
 import { TaskCard } from "@/components/TaskCard";
 import { useTaskActions } from "@/components/TaskActions";
 import { Empty, ErrorBox, cx } from "@/components/ui";
@@ -131,6 +132,7 @@ function Calendar({ today }: { today: string }) {
           <span className="text-[13px] text-text-sub-weak">{list.data?.length ?? 0}개</span>
         </div>
         <div className="mt-4 space-y-3">
+          {list.loading && <TaskListSkeleton count={2} />}
           {list.error && <ErrorBox message={list.error} onRetry={list.reload} />}
           {list.data && list.data.length === 0 && <Empty>이 날은 할 일이 없어요</Empty>}
           {list.data?.map((t) => <TaskCard key={t.id} task={t} onToggle={actions.toggle} />)}

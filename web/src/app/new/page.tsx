@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AppBar } from "@/components/AppBar";
 import { DateField, WeekdayPicker } from "@/components/PlanFields";
+import { PreviewSkeleton } from "@/components/Skeleton";
 import { Button, Chip, Field, Stepper, TextInput, TypeIcon, cx } from "@/components/ui";
 import { api } from "@/lib/api";
 import {
@@ -70,10 +71,8 @@ export default function NewPlanPage() {
   return <NewPlan today={today} />;
 }
 
-function NewPlan({ today }: { today: string }) {
-  const router = useRouter();
-  const [step, setStep] = useState(1);
-  const [form, setForm] = useState<Form>({
+function emptyForm(today: string): Form {
+  return {
     type: null,
     title: "",
     currentPage: "1",
@@ -83,10 +82,29 @@ function NewPlan({ today }: { today: string }) {
     start: today,
     end: addDays(today, 27),
     weekdays: EVERYDAY,
-  });
+  };
+}
+
+function NewPlan({ today }: { today: string }) {
+  const router = useRouter();
+  const [step, setStep] = useState(1);
+  const [form, setForm] = useState<Form>(() => emptyForm(today));
   const [sliderMax, setSliderMax] = useState(56);
   const set = (patch: Partial<Form>) => setForm((f) => ({ ...f, ...patch }));
   const meta = TYPES.find((t) => t.type === form.type);
+
+  // Next 16은 떠난 화면을 숨겨 두고(Activity) 다시 보여 준다.
+  // 등록을 끝냈거나 닫았을 때는 다음에 처음부터 시작하도록 직접 초기화한다.
+  function reset() {
+    setStep(1);
+    setForm(emptyForm(today));
+  }
+
+  function close() {
+    reset();
+    if (window.history.length > 1) router.back();
+    else router.push("/");
+  }
 
   function selectType(type: PlanType) {
     set({ type, weekdays: type === "book" ? [0, 1, 2, 3, 4] : EVERYDAY });
@@ -102,7 +120,7 @@ function NewPlan({ today }: { today: string }) {
       <AppBar
         title={step === 1 ? "새 플랜 만들기" : step === 2 ? (meta?.appBar ?? "") : "계산 결과"}
         icon={step === 1 ? "close" : "back"}
-        onBack={step === 1 ? undefined : () => setStep(step - 1)}
+        onBack={step === 1 ? close : () => setStep(step - 1)}
       />
       <Stepper step={step} />
 
@@ -157,7 +175,10 @@ function NewPlan({ today }: { today: string }) {
           set={set}
           sliderMax={sliderMax}
           setSliderMax={setSliderMax}
-          onDone={() => router.replace("/")}
+          onDone={() => {
+            reset();
+            router.replace("/");
+          }}
         />
       )}
     </main>
@@ -395,6 +416,7 @@ function PreviewStep({
         </div>
       )}
 
+      {!p && !error && <PreviewSkeleton />}
       {p && (
         <div className="glass-card border-glass-border-green! p-6">
           <p className="text-[14px] font-medium">하루 할당량</p>

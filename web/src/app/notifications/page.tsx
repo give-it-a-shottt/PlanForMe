@@ -2,6 +2,7 @@
 
 import { Check, CircleAlert, Clock, RotateCw, type LucideIcon } from "lucide-react";
 import { AppBar } from "@/components/AppBar";
+import { TaskListSkeleton } from "@/components/Skeleton";
 import { useTaskActions } from "@/components/TaskActions";
 import { Empty, ErrorBox, cx } from "@/components/ui";
 import { api, useApi } from "@/lib/api";
@@ -18,7 +19,7 @@ const KIND: Record<Notification["kind"], { label: string; icon: LucideIcon; gree
 export default function NotificationsPage() {
   const { settings } = useSettings();
   const hour = Number(settings.remindTime.split(":")[0]) || 21;
-  const { data, error, reload } = useApi(() => api.notifications(hour), `noti-${hour}`);
+  const { data, error, loading, reload } = useApi(() => api.notifications(hour), `noti-${hour}`);
   const actions = useTaskActions(reload);
 
   const groups: [string, Notification[]][] = [
@@ -30,6 +31,11 @@ export default function NotificationsPage() {
     <main className="pb-10">
       <AppBar title="알림" />
       <div className="px-5">
+        {loading && (
+          <div className="mt-4">
+            <TaskListSkeleton />
+          </div>
+        )}
         {error && <ErrorBox message={error} onRetry={reload} />}
         {data && data.length === 0 && <Empty>새 알림이 없어요</Empty>}
         {groups.map(

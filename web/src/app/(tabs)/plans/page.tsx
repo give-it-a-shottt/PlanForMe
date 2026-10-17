@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { PlanCard } from "@/components/PlanCard";
+import { Bar, PlanListSkeleton } from "@/components/Skeleton";
 import { Chip, Empty, ErrorBox } from "@/components/ui";
 import { api, useApi } from "@/lib/api";
 import type { PlanStatus } from "@/lib/types";
@@ -14,25 +15,26 @@ const FILTERS: { key: PlanStatus; label: string }[] = [
 ];
 
 export default function PlansPage() {
-  const { data, error, reload } = useApi(api.plans, "plans");
+  const { data, error, loading, reload } = useApi(api.plans, "plans");
   const [status, setStatus] = useState<PlanStatus>("active");
   const count = (s: PlanStatus) => data?.filter((p) => p.status === s).length ?? 0;
   const plans = data?.filter((p) => p.status === status) ?? [];
 
   return (
     <main className="px-5 pt-8">
-      <p className="text-[14px] text-text-sub">{count("active")}개 진행 중</p>
+      {data ? <p className="text-[14px] text-text-sub">{count("active")}개 진행 중</p> : <Bar className="h-5 w-20" />}
       <h1 className="mt-1 text-[24px] font-semibold">내 플랜</h1>
 
       <div className="mt-5 flex gap-2">
         {FILTERS.map((f) => (
           <Chip key={f.key} selected={status === f.key} onClick={() => setStatus(f.key)}>
-            {f.label} {count(f.key)}
+            {f.label} {data && count(f.key)}
           </Chip>
         ))}
       </div>
 
       <div className="mt-5 space-y-3">
+        {loading && <PlanListSkeleton />}
         {error && <ErrorBox message={error} onRetry={reload} />}
         {data && plans.length === 0 && (
           <Empty>
