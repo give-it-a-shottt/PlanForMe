@@ -1,0 +1,25 @@
+[project]
+name = "api"
+version = "0.1.0"
+description = "PlanForMe API"
+authors = [
+    { name = "give-it-a-shottt", email = "jeongseonghoon4537@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.143.3",
+    "psycopg[binary]>=3.3.6",
+    "sqlalchemy>=2.1.5",
+    "tzdata>=2026.5",
+]
+
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+    "uvicorn>=0.54.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
