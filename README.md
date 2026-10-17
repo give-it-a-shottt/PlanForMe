@@ -125,6 +125,10 @@ IA의 계산 로직 예시(10일 평일 → D=10, 100p/3일 → 34/34/32, 45강/
 | POST | `/tasks/{id}/uncomplete` | 완료 취소 |
 | GET | `/calendar`, `/stats`, `/notifications` | 캘린더 Dot · 학습 통계 · 알림 센터 |
 
+## 트러블슈팅
+
+개발 · 배포 중 만난 문제와 해결 과정은 [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)에 정리했습니다.
+
 ## 범위 밖 (다음 단계)
 
 - 푸시 알림: 지금은 앱 안의 알림 센터에만 표시됩니다 (Web Push 필요)
