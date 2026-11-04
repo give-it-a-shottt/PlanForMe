@@ -1,15 +1,15 @@
 "use client";
 
 // 디자인 코드라 설명 생략
-import { Calendar, House, List, Plus, User, type LucideIcon } from "lucide-react";
+import { CalendarBlank, House, type Icon as PhosphorIcon, ListBullets, Plus, User } from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cx } from "./ui";
 
-const TABS: { href: string; label: string; icon: LucideIcon }[] = [
+const TABS: { href: string; label: string; icon: PhosphorIcon }[] = [
   { href: "/", label: "홈", icon: House },
-  { href: "/calendar", label: "캘린더", icon: Calendar },
-  { href: "/plans", label: "플랜", icon: List },
+  { href: "/calendar", label: "캘린더", icon: CalendarBlank },
+  { href: "/plans", label: "플랜", icon: ListBullets },
   { href: "/my", label: "마이", icon: User },
 ];
 
@@ -22,7 +22,7 @@ function Tab({ href, label, icon: Icon, active }: (typeof TABS)[number] & { acti
         active ? "font-semibold text-icon-main" : "text-icon-sub",
       )}
     >
-      <Icon size={24} strokeWidth={1.8} />
+      <Icon size={24} weight={active ? "fill" : "regular"} />
       <span className={active ? "text-text-main" : "text-text-sub"}>{label}</span>
     </Link>
   );
@@ -41,7 +41,7 @@ export function TabBar() {
           aria-label="새 플랜 만들기"
           className="-mt-1 flex size-14 items-center justify-center rounded-full bg-primary text-text-on-primary shadow-3 transition-colors duration-150 active:bg-primary-pressed"
         >
-          <Plus size={28} />
+          <Plus size={24} />
         </Link>
         <Tab {...TABS[2]} active={isActive(TABS[2].href)} />
         <Tab {...TABS[3]} active={isActive(TABS[3].href)} />

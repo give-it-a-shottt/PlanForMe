@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Clock, Moon, User } from "lucide-react";
+import { Bell, Clock, Moon, User } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Bar, StatsSkeleton } from "@/components/Skeleton";
 import { Chip, ErrorBox, Toggle, TypeIcon, cx } from "@/components/ui";
@@ -20,7 +20,7 @@ export default function MyPage() {
     <main className="px-5 pt-8">
       <div className="flex items-center gap-4">
         <span className="flex size-14 items-center justify-center rounded-full bg-primary-soft text-primary-text">
-          <User size={26} />
+          <User size={24} />
         </span>
         <div>
           <p className="text-[13px] text-text-sub">{s && s.streak > 0 ? `${s.streak}일 연속 달성 중` : "오늘도 한 걸음씩"}</p>
@@ -85,13 +85,13 @@ export default function MyPage() {
       <section className="mt-8">
         <h2 className="text-[17px] font-semibold">설정</h2>
         <div className="card mt-3 divide-y divide-line-regular px-5">
-          <SettingRow icon={<Moon size={22} />} label="다크모드">
+          <SettingRow icon={<Moon size={20} />} label="다크모드">
             <Toggle label="다크모드" on={settings.dark} onChange={(dark) => update({ dark })} />
           </SettingRow>
-          <SettingRow icon={<Bell size={22} />} label="알림 받기">
+          <SettingRow icon={<Bell size={20} />} label="알림 받기">
             <Toggle label="알림 받기" on={settings.push} onChange={(push) => update({ push })} />
           </SettingRow>
-          <SettingRow icon={<Clock size={22} />} label="알림 시간">
+          <SettingRow icon={<Clock size={20} />} label="알림 시간">
             <label className="relative text-[14px] text-text-sub">
               매일 {settings.remindTime}
               <input

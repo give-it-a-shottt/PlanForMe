@@ -1,7 +1,7 @@
 "use client";
 
 // 디자인 코드라 설명 생략
-import { ChevronLeft, X } from "lucide-react";
+import { CaretLeft, X } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 
@@ -17,7 +17,7 @@ export function AppBar({
   right?: ReactNode;
 }) {
   const router = useRouter();
-  const Icon = icon === "close" ? X : ChevronLeft;
+  const Icon = icon === "close" ? X : CaretLeft;
   return (
     <header className="sticky top-0 z-20 flex h-14 items-center justify-between bg-bg-light px-3">
       <button

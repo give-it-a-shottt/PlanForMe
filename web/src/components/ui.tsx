@@ -1,7 +1,7 @@
 "use client";
 
 // 디자인 코드라 설명 생략 (피그마 PlanForMe › Design_System 페이지의 Components 기준 공통 UI)
-import { Book, Check, Repeat, SquarePlay, type LucideIcon } from "lucide-react";
+import { Book, Check, type Icon as PhosphorIcon, MonitorPlay, Repeat } from "@phosphor-icons/react";
 import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
 import type { PlanType } from "@/lib/types";
 
@@ -69,7 +69,7 @@ export function Checkbox({ checked, onClick, label }: { checked: boolean; onClic
           checked ? "border-primary bg-primary text-icon-inverse" : "border-line-strong bg-bg-default",
         )}
       >
-        {checked && <Check size={16} strokeWidth={3} />}
+        {checked && <Check size={16} weight="bold" />}
       </span>
     </button>
   );
@@ -114,7 +114,7 @@ export function Stepper({ step, total = 3 }: { step: number; total?: number }) {
   );
 }
 
-const TYPE_ICON: Record<PlanType, LucideIcon> = { book: Book, lecture: SquarePlay, routine: Repeat };
+const TYPE_ICON: Record<PlanType, PhosphorIcon> = { book: Book, lecture: MonitorPlay, routine: Repeat };
 
 /** 카테고리 아이콘 박스 — 기본은 무채색, 선택(active)일 때만 브랜드 */
 export function TypeIcon({ type, active, done, size = "md" }: { type: PlanType; active?: boolean; done?: boolean; size?: "md" | "lg" }) {
@@ -127,7 +127,7 @@ export function TypeIcon({ type, active, done, size = "md" }: { type: PlanType; 
         active ? "bg-primary text-icon-inverse" : done ? "bg-bg-regular text-icon-disabled" : "bg-bg-regular text-icon-sub",
       )}
     >
-      <Icon size={22} strokeWidth={done ? 2.5 : 1.8} />
+      <Icon size={24} weight={done ? "bold" : "regular"} />
     </div>
   );
 }

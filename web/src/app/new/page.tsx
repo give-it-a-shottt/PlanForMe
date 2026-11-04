@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleAlert } from "lucide-react";
+import { WarningCircle } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AppBar } from "@/components/AppBar";
@@ -404,7 +404,7 @@ function PreviewStep({
     >
       {p?.overload && (
         <div className="mb-4 flex gap-3 rounded-card bg-status-warning-bg p-4 text-status-warning-text">
-          <CircleAlert size={20} className="mt-0.5 shrink-0 text-status-warning-base" />
+          <WarningCircle size={20} className="mt-0.5 shrink-0 text-status-warning-base" />
           <div>
             <p className="text-[14px] font-semibold">하루 공부량이 조금 많아요!</p>
             {p.extend_weeks && p.extend_daily && (

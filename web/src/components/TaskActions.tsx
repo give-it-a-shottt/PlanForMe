@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, RotateCw } from "lucide-react";
+import { ArrowClockwise, CaretRight } from "@phosphor-icons/react";
 import { useCallback, useLayoutEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { addDays, fmtDot, fmtMonthDayShort, TYPE_LABEL, todayISO, UNIT, UNIT_LONG, weekdayName } from "@/lib/format";
@@ -202,7 +202,7 @@ function ReplanContent({
   return (
     <div className="text-center">
       <div className="mx-auto flex size-14 items-center justify-center rounded-button bg-bg-regular text-icon-sub">
-        <RotateCw size={26} />
+        <ArrowClockwise size={24} />
       </div>
       <h2 className="mt-4 text-[20px] font-semibold">{title}</h2>
       <p className="mt-2 whitespace-pre-line text-[14px] text-text-sub">
@@ -222,7 +222,7 @@ function ReplanContent({
               {unit}
             </p>
           </div>
-          <ChevronRight className="shrink-0 text-icon-sub-weak" size={20} />
+          <CaretRight className="shrink-0 text-icon-sub-weak" size={20} />
           <div className="flex-1 rounded-card bg-primary-soft py-4 ring-1 ring-primary">
             <p className="text-[12px] text-text-sub-weak">{from}</p>
             <p className="mt-1 text-[20px] font-semibold text-primary-text">

@@ -1,6 +1,6 @@
 "use client";
 
-import { Pause, Pencil, Play, RotateCw, Trash2 } from "lucide-react";
+import { ArrowClockwise, Pause, PencilSimple, Play, Trash } from "@phosphor-icons/react";
 import { useParams, useRouter } from "next/navigation";
 import { Suspense, useLayoutEffect, useState } from "react";
 import { AppBar } from "@/components/AppBar";
@@ -134,7 +134,7 @@ function PlanDetailView() {
           <section className="card p-5">
             <div className="flex gap-3">
               <span className="flex size-10 shrink-0 items-center justify-center rounded-button bg-bg-regular text-icon-sub">
-                <RotateCw size={20} />
+                <ArrowClockwise size={20} />
               </span>
               <div>
                 <p className="text-[16px] font-semibold">일정 재계산</p>
@@ -173,14 +173,14 @@ function PlanDetailView() {
         </section>
 
         <div className="grid grid-cols-3 gap-2 pt-2">
-          <ActionButton icon={<Pencil size={18} />} label="수정" onClick={() => setEditing(true)} />
+          <ActionButton icon={<PencilSimple size={20} />} label="수정" onClick={() => setEditing(true)} />
           <ActionButton
-            icon={plan.status === "paused" ? <Play size={18} /> : <Pause size={18} />}
+            icon={plan.status === "paused" ? <Play size={20} /> : <Pause size={20} />}
             label={plan.status === "paused" ? "재개" : "보류"}
             disabled={busy || plan.status === "done"}
             onClick={togglePause}
           />
-          <ActionButton icon={<Trash2 size={18} />} label="삭제" danger onClick={remove} />
+          <ActionButton icon={<Trash size={20} />} label="삭제" danger onClick={remove} />
         </div>
       </div>
 

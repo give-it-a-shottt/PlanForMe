@@ -1,7 +1,7 @@
 "use client";
 
 // 디자인 코드라 설명 생략
-import { Target } from "lucide-react";
+import { Target } from "@phosphor-icons/react";
 import Link from "next/link";
 import { dDay, TYPE_LABEL, UNIT, weekdayName } from "@/lib/format";
 import type { Plan } from "@/lib/types";
@@ -39,7 +39,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
       </div>
       <ProgressBar value={plan.progress} className="mt-2" />
       <p className="mt-3 flex items-center gap-1.5 text-[12px] text-text-sub">
-        <Target size={14} />
+        <Target size={16} />
         {dailyText(plan)}
       </p>
     </Link>

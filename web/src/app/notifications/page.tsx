@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, CircleAlert, Clock, RotateCw, type LucideIcon } from "lucide-react";
+import { ArrowClockwise, Check, Clock, type Icon as PhosphorIcon, WarningCircle } from "@phosphor-icons/react";
 import { AppBar } from "@/components/AppBar";
 import { TaskListSkeleton } from "@/components/Skeleton";
 import { useTaskActions } from "@/components/TaskActions";
@@ -9,11 +9,11 @@ import { api, useApi } from "@/lib/api";
 import { useSettings } from "@/lib/settings";
 import type { Notification } from "@/lib/types";
 
-const KIND: Record<Notification["kind"], { label: string; icon: LucideIcon }> = {
-  replan: { label: "재계산 제안", icon: RotateCw },
+const KIND: Record<Notification["kind"], { label: string; icon: PhosphorIcon }> = {
+  replan: { label: "재계산 제안", icon: ArrowClockwise },
   reminder: { label: "리마인더", icon: Clock },
   achieved: { label: "달성", icon: Check },
-  missed: { label: "미달성", icon: CircleAlert },
+  missed: { label: "미달성", icon: WarningCircle },
 };
 
 export default function NotificationsPage() {

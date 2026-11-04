@@ -134,6 +134,20 @@
 | Badge | S 24 · 12 Medium · `radius/tag`. Brand(`primary/soft` + `primary/text`) · Warning · Gray |
 | BottomSheet | `bg/elevated` · `radius/sheet` · Shadow/4 · 딤 `bg/dim-weak` |
 
+## 7. 아이콘 — Phosphor (My Design System 07 Icon 사본)
+
+- 피그마: Design_System › Components › `Section · Icon · Phosphor` — My Design System `07 Icon`과 같은 이름(`icon/{역할}`) · 같은 Phosphor 패스, PlanForMe에는 **Regular · Fill** 두 스타일만 복사. 색은 `Glyph` 레이어에 `icon/*` 토큰.
+- 코드: `@phosphor-icons/react` — 컴포넌트 이름은 Phosphor 원래 이름(아래 표). 크기는 12 · 16 · 20 · 24만, 기본 24.
+- 선택 상태(탭바 현재 탭)만 `weight="fill"`, 완료 체크 · 12 ~ 16 작은 아이콘은 `weight="bold"`, 나머지는 Regular.
+
+| 역할 (피그마) | Phosphor (코드) | 쓰는 곳 |
+| --- | --- | --- |
+| home · calendar · list · user · plus | House · CalendarBlank · ListBullets · User · Plus | 탭바 · FAB |
+| book · video · repeat | Book · MonitorPlay · Repeat | 카테고리 (책 · 강의 · 일반) |
+| back · forward · close | CaretLeft · CaretRight · X | 헤더 · 리스트 화살표 |
+| check · refresh · error · time · bell · moon · target | Check · ArrowClockwise · WarningCircle · Clock · Bell · Moon · Target | 완료 · 재계산 · 경고 · 알림 · 설정 · 하루 목표 |
+| edit · delete · pause · play · more-vertical | PencilSimple · Trash · Pause · Play · DotsThreeVertical | 플랜 상세 액션 |
+
 ## Quick Start
 
 ```html

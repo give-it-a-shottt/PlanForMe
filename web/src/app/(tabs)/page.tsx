@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, ChevronRight, RotateCw } from "lucide-react";
+import { ArrowClockwise, Bell, CaretRight } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useState } from "react";
 import { HomeSkeleton } from "@/components/Skeleton";
@@ -51,7 +51,7 @@ export default function HomePage() {
           aria-label="알림"
           className="relative flex size-11 items-center justify-center rounded-full bg-bg-default text-icon-main shadow-1"
         >
-          <Bell size={22} />
+          <Bell size={24} />
           {(left > 0 || overdue) && <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-status-error-base" />}
         </Link>
       </div>
@@ -78,7 +78,7 @@ export default function HomePage() {
           className="mt-4 flex w-full items-center gap-3 rounded-card bg-primary-soft p-4 text-left transition-colors duration-150 active:bg-primary-soft-pressed"
         >
           <span className="flex size-10 shrink-0 items-center justify-center rounded-button bg-primary text-text-on-primary">
-            <RotateCw size={20} />
+            <ArrowClockwise size={20} />
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-[14px] font-semibold">밀린 분량이 있어요</span>
@@ -86,7 +86,7 @@ export default function HomePage() {
               {overdue.plan_title} · {overdueLabel(overdue)} → 남은 일정 다시 나누기
             </span>
           </span>
-          <ChevronRight size={20} className="shrink-0 text-icon-sub" />
+          <CaretRight size={20} className="shrink-0 text-icon-sub" />
         </button>
       )}
 

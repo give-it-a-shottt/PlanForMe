@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { useState } from "react";
 import { TaskListSkeleton } from "@/components/Skeleton";
 import { TaskCard } from "@/components/TaskCard";
@@ -66,10 +66,10 @@ function Calendar({ today }: { today: string }) {
         </h1>
         <div className="flex gap-1">
           <button aria-label="이전" onClick={() => move(-1)} className="flex size-9 items-center justify-center text-icon-main">
-            <ChevronLeft size={22} />
+            <CaretLeft size={24} />
           </button>
           <button aria-label="다음" onClick={() => move(1)} className="flex size-9 items-center justify-center text-icon-main">
-            <ChevronRight size={22} />
+            <CaretRight size={24} />
           </button>
         </div>
       </div>
