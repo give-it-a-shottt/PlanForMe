@@ -20,7 +20,7 @@ function recordBadge(t: Task) {
   const diff = t.actual_end - t.target_end;
   const unit = UNIT[t.plan_type];
   const verb = t.plan_type === "book" ? "읽음" : "들음";
-  if (diff < 0) return <Badge tone="yellow">{`${-diff}${unit} 덜 ${verb}`}</Badge>;
+  if (diff < 0) return <Badge tone="warning">{`${-diff}${unit} 덜 ${verb}`}</Badge>;
   if (diff > 0) return <Badge>{`${diff}${unit} 더 ${verb}`}</Badge>;
   return <Badge>완료</Badge>;
 }
@@ -101,7 +101,7 @@ function PlanDetailView() {
     <main className="pb-10">
       <AppBar title="플랜 상세" />
       <div className="space-y-4 px-5">
-        <section className="glass-card border-glass-border-green! p-5">
+        <section className="card p-5">
           <div className="flex items-center gap-3">
             <TypeIcon type={plan.type} active />
             <div className="min-w-0">
@@ -114,7 +114,7 @@ function PlanDetailView() {
           </div>
           <p className="mt-5 text-[13px] text-text-sub">남은 기간</p>
           <div className="flex items-end justify-between">
-            <p className="text-[40px] font-semibold leading-tight text-primary">{dDay(plan.d_day)}</p>
+            <p className="text-[40px] font-semibold leading-tight text-primary-text">{dDay(plan.d_day)}</p>
             <p className="pb-2 text-[13px] text-text-sub">{fmtDot(plan.end_date)} 종료</p>
           </div>
           <div className="mt-3 flex justify-between text-[13px]">
@@ -131,9 +131,9 @@ function PlanDetailView() {
         </div>
 
         {plan.type !== "routine" && plan.status === "active" && (
-          <section className="glass-card p-5">
+          <section className="card p-5">
             <div className="flex gap-3">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-inner bg-primary-glass text-primary">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-button bg-bg-regular text-icon-sub">
                 <RotateCw size={20} />
               </span>
               <div>
@@ -141,7 +141,7 @@ function PlanDetailView() {
                 <p className="mt-1 text-[13px] text-text-sub">밀렸거나 미리 했다면 남은 분량을 남은 일수로 다시 나눠요</p>
               </div>
             </div>
-            <Button variant="outline" className="mt-4 h-12 border-glass-border-green" onClick={() => actions.openReplan(plan.id)}>
+            <Button variant="secondary" className="mt-4 h-12" onClick={() => actions.openReplan(plan.id)}>
               남은 일정 다시 나누기
             </Button>
           </section>
@@ -156,7 +156,7 @@ function PlanDetailView() {
               </button>
             )}
           </div>
-          <div className="glass-card mt-3 divide-y divide-line-regular px-5">
+          <div className="card mt-3 divide-y divide-line-regular px-5">
             {records.length === 0 && <p className="py-5 text-center text-[14px] text-text-sub-weak">아직 수행 기록이 없어요</p>}
             {records.map((t) => (
               <div key={t.id} className="flex items-center justify-between py-4">
@@ -202,7 +202,7 @@ function PlanDetailView() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="glass-card rounded-inner! py-4 text-center">
+    <div className="card rounded-button! py-4 text-center">
       <p className="text-[12px] text-text-sub">{label}</p>
       <p className="mt-1 text-[18px] font-semibold">{value}</p>
     </div>
@@ -227,8 +227,8 @@ function ActionButton({
       disabled={disabled}
       onClick={onClick}
       className={cx(
-        "glass-card flex h-14 items-center justify-center gap-2 rounded-inner! text-[14px] font-medium disabled:opacity-40",
-        danger ? "text-[#F04438]" : "text-text-main",
+        "card flex h-14 items-center justify-center gap-2 rounded-button! text-[14px] font-medium disabled:opacity-40",
+        danger ? "text-status-error-text" : "text-text-main",
       )}
     >
       {icon}
@@ -265,7 +265,7 @@ function EditForm({ plan, onSaved }: { plan: PlanDetail; onSaved: () => void }) 
       <DateField label="종료일" value={end} min={plan.start_date} onChange={setEnd} />
       <WeekdayPicker value={weekdays} onChange={setWeekdays} />
       <p className="text-[12px] text-text-sub-weak">종료일이나 요일을 바꾸면 남은 분량을 다시 나눠요.</p>
-      {error && <p className="text-[13px] text-[#D92D20]">{error}</p>}
+      {error && <p className="text-[13px] text-status-error-text">{error}</p>}
       <Button disabled={saving || !title.trim() || weekdays.length === 0} onClick={save}>
         저장하기
       </Button>

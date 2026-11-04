@@ -7,7 +7,7 @@ import { Checkbox, TypeIcon, cx } from "./ui";
 
 export function TaskCard({ task, onToggle }: { task: Task; onToggle: (task: Task) => void }) {
   return (
-    <div className="glass-card flex items-center gap-3 p-4">
+    <div className="card flex items-center gap-3 p-4">
       <TypeIcon type={task.plan_type} done={task.done} />
       <div className="min-w-0 flex-1">
         <p className="truncate text-[12px] text-text-sub-weak">{taskMeta(task)}</p>

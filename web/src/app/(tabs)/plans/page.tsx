@@ -42,7 +42,7 @@ export default function PlansPage() {
               <>
                 진행 중인 플랜이 없어요.
                 <br />
-                <Link href="/new" className="font-semibold text-primary">
+                <Link href="/new" className="font-semibold text-primary-text">
                   + 새 플랜 만들기
                 </Link>
               </>

@@ -2,13 +2,13 @@
 
 // 디자인 코드라 설명 생략 (날짜 · 수행 요일 입력)
 import { fmtMonthDay, WEEKDAY_MON_FIRST } from "@/lib/format";
-import { Chip, cx } from "./ui";
+import { Chip, cx, inputBox } from "./ui";
 
 export function DateField({ label, value, min, onChange }: { label: string; value: string; min?: string; onChange: (v: string) => void }) {
   return (
     <div>
-      <span className="mb-2 block text-[13px] font-medium">{label}</span>
-      <div className="relative flex h-14 items-center rounded-inner border border-line-regular bg-glass-elevated px-4 text-[15px]">
+      <span className="mb-2 block text-[14px] font-semibold">{label}</span>
+      <div className={cx(inputBox, "relative text-[16px]")}>
         {value ? fmtMonthDay(value) : "날짜 선택"}
         <input
           type="date"
@@ -37,7 +37,7 @@ export function WeekdayPicker({ value, onChange }: { value: number[]; onChange: 
   const matched = PRESETS.find((p) => p.days && same(value, p.days));
   return (
     <div>
-      <span className="mb-2 block text-[13px] font-medium">수행 요일</span>
+      <span className="mb-2 block text-[14px] font-semibold">수행 요일</span>
       <div className="flex flex-wrap gap-2">
         {PRESETS.map((p) => (
           <Chip
@@ -60,7 +60,7 @@ export function WeekdayPicker({ value, onChange }: { value: number[]; onChange: 
               onClick={() => onChange(on ? value.filter((d) => d !== i) : [...value, i].sort())}
               className={cx(
                 "size-11 rounded-full text-[14px] font-medium transition",
-                on ? "bg-primary text-white" : "bg-glass-elevated text-text-sub",
+                on ? "bg-bg-inverse font-semibold text-text-inverse" : "bg-bg-default text-text-sub ring-1 ring-line-regular",
               )}
             >
               {name}

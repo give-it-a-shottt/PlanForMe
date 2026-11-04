@@ -49,14 +49,14 @@ export default function HomePage() {
         <Link
           href="/notifications"
           aria-label="알림"
-          className="relative flex size-11 items-center justify-center rounded-full bg-glass-elevated text-icon-main shadow-glass"
+          className="relative flex size-11 items-center justify-center rounded-full bg-bg-default text-icon-main shadow-1"
         >
           <Bell size={22} />
-          {(left > 0 || overdue) && <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-[#F04438]" />}
+          {(left > 0 || overdue) && <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-status-error-base" />}
         </Link>
       </div>
 
-      <section className="glass-card mt-6 p-5">
+      <section className="card mt-6 p-5">
         <div className="flex items-end justify-between">
           <div>
             <p className="text-[14px] font-medium">오늘 달성률</p>
@@ -64,7 +64,7 @@ export default function HomePage() {
               {data.total_count}개 중 {data.done_count}개 완료
             </p>
           </div>
-          <p className="text-[36px] font-semibold leading-none text-primary">
+          <p className="text-[36px] font-semibold leading-none text-primary-text">
             {rate}
             <span className="ml-1 text-[16px] text-text-main">%</span>
           </p>
@@ -75,9 +75,9 @@ export default function HomePage() {
       {overdue && (
         <button
           onClick={() => actions.openReplan(overdue.plan_id)}
-          className="mt-4 flex w-full items-center gap-3 rounded-card border border-glass-border-green bg-primary-glass p-4 text-left"
+          className="mt-4 flex w-full items-center gap-3 rounded-card bg-primary-soft p-4 text-left transition-colors duration-150 active:bg-primary-soft-pressed"
         >
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-inner bg-primary text-white">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-button bg-primary text-text-on-primary">
             <RotateCw size={20} />
           </span>
           <span className="min-w-0 flex-1">
@@ -109,7 +109,7 @@ export default function HomePage() {
                 <>
                   아직 오늘 할 일이 없어요.
                   <br />
-                  <Link href="/new" className="font-semibold text-primary">
+                  <Link href="/new" className="font-semibold text-primary-text">
                     + 새 플랜 만들기
                   </Link>
                 </>

@@ -20,7 +20,7 @@ export function dailyText(p: Plan) {
 
 export function PlanCard({ plan }: { plan: Plan }) {
   return (
-    <Link href={`/plan/${plan.id}`} className="glass-card block p-5">
+    <Link href={`/plan/${plan.id}`} className="card block p-5">
       <div className="flex items-center gap-3">
         <TypeIcon type={plan.type} />
         <div className="min-w-0 flex-1">
@@ -29,7 +29,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
           </p>
           <p className="truncate text-[16px] font-semibold">{plan.title}</p>
         </div>
-        <Badge tone={plan.status === "active" ? "green" : "gray"}>
+        <Badge tone={plan.status === "active" ? "brand" : "gray"}>
           {plan.status === "done" ? "완료" : plan.status === "paused" ? "보류" : dDay(plan.d_day)}
         </Badge>
       </div>

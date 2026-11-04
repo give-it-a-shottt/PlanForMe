@@ -143,8 +143,8 @@ function NewPlan({ today }: { today: string }) {
                   key={t.type}
                   onClick={() => selectType(t.type)}
                   className={cx(
-                    "glass-card flex w-full items-center gap-4 p-5 text-left transition",
-                    active && "border-glass-border-green! bg-glass-elevated shadow-primary",
+                    "card flex w-full items-center gap-4 border border-transparent p-5 text-left transition-colors duration-150",
+                    active && "border-primary",
                   )}
                 >
                   <TypeIcon type={t.type} active={active} size="lg" />
@@ -155,7 +155,7 @@ function NewPlan({ today }: { today: string }) {
                   <span
                     className={cx(
                       "flex size-6 shrink-0 items-center justify-center rounded-full border-2",
-                      active ? "border-primary" : "border-line-regular",
+                      active ? "border-primary" : "border-line-strong",
                     )}
                   >
                     {active && <span className="size-3 rounded-full bg-primary" />}
@@ -390,9 +390,9 @@ function PreviewStep({
       desc={p ? `${basis} 기준으로 나눴어요` : ""}
       footer={
         <div className="space-y-2">
-          {error && <p className="text-center text-[12px] text-[#D92D20]">{error}</p>}
+          {error && <p className="text-center text-[12px] text-status-error-text">{error}</p>}
           {p?.overload && p.extend_weeks && (
-            <Button variant="outline" onClick={() => extend(p.extend_weeks!)}>
+            <Button variant="secondary" onClick={() => extend(p.extend_weeks!)}>
               종료일 {p.extend_weeks}주 늘리기
             </Button>
           )}
@@ -403,8 +403,8 @@ function PreviewStep({
       }
     >
       {p?.overload && (
-        <div className="mb-4 flex gap-3 rounded-card bg-[#FFF4D6] p-4 text-[#5C3D00]">
-          <CircleAlert size={20} className="mt-0.5 shrink-0 text-[#E5A000]" />
+        <div className="mb-4 flex gap-3 rounded-card bg-status-warning-bg p-4 text-status-warning-text">
+          <CircleAlert size={20} className="mt-0.5 shrink-0 text-status-warning-base" />
           <div>
             <p className="text-[14px] font-semibold">하루 공부량이 조금 많아요!</p>
             {p.extend_weeks && p.extend_daily && (
@@ -418,10 +418,10 @@ function PreviewStep({
 
       {!p && !error && <PreviewSkeleton />}
       {p && (
-        <div className="glass-card border-glass-border-green! p-6">
+        <div className="card p-6">
           <p className="text-[14px] font-medium">하루 할당량</p>
           <p className="mt-2 flex items-baseline gap-1.5">
-            <span className="text-[52px] font-semibold leading-none text-primary">{type === "routine" ? 1 : p.daily_amount}</span>
+            <span className="text-[52px] font-semibold leading-none text-primary-text">{type === "routine" ? 1 : p.daily_amount}</span>
             <span className="text-[20px] font-semibold">{unit}</span>
           </p>
           <p className="mt-3 text-[13px] text-text-sub">{sub}</p>
@@ -450,7 +450,7 @@ function PreviewStep({
       <div className="mt-7">
         <div className="flex items-center justify-between">
           <span className="text-[14px] font-medium">종료일 조정</span>
-          <span className="text-[14px] font-semibold text-primary">{fmtMonthDayShort(form.end)}</span>
+          <span className="text-[14px] font-semibold text-primary-text">{fmtMonthDayShort(form.end)}</span>
         </div>
         <input
           type="range"
@@ -472,7 +472,7 @@ function PreviewStep({
           <p className="text-[14px] font-medium">첫 주 미리보기</p>
           <div className="mt-3 grid grid-cols-5 gap-2">
             {p.first_week.map((d) => (
-              <div key={d.date} className="glass-card rounded-inner! px-1 py-3 text-center">
+              <div key={d.date} className="card rounded-button! px-1 py-3 text-center">
                 <p className="text-[11px] text-text-sub-weak">{fmtSlash(d.date)}</p>
                 <p className="mt-1 text-[13px] font-semibold">{rangeText(type, d.target_start, d.target_end, "~").replace(/p~/, "~").replace(/강~/, "~")}</p>
               </div>

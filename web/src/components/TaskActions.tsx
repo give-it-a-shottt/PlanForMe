@@ -98,7 +98,7 @@ export function useTaskActions(onChanged: () => void) {
         {replan && <ReplanContent {...replan} busy={busy} onConfirm={confirmReplan} onKeep={() => setReplan(null)} />}
       </BottomSheet>
       {toast && (
-        <div className="fixed inset-x-0 top-4 z-60 mx-auto w-fit max-w-[90%] rounded-full bg-text-main px-4 py-2 text-[13px] text-white shadow-glass">
+        <div className="fixed inset-x-0 top-4 z-60 mx-auto w-fit max-w-[90%] rounded-button bg-[rgb(17_17_17/0.7)] px-4 py-3 text-[13px] font-medium text-white shadow-3 backdrop-blur-[10px]">
           {toast}
         </div>
       )}
@@ -130,7 +130,7 @@ function ProgressForm({ task, busy, onSubmit }: { task: Task; busy: boolean; onS
         </div>
       </div>
 
-      <div className="mt-5 flex items-center justify-between rounded-inner bg-glass-sub px-4 py-4 text-[14px]">
+      <div className="mt-5 flex items-center justify-between rounded-button bg-bg-regular px-4 py-4 text-[14px]">
         <span className="text-text-sub">오늘 목표</span>
         <span className="font-semibold">
           {task.target_start}
@@ -165,7 +165,7 @@ function ProgressForm({ task, busy, onSubmit }: { task: Task; busy: boolean; onS
           {unitLong} {diff < 0 ? "덜" : "더"} {verb}. 저장하면 재계산을 제안해 드려요.
         </p>
       )}
-      <Button variant="outline" className="mt-4" disabled={busy || num == null} onClick={() => num != null && onSubmit(num)}>
+      <Button variant="secondary" className="mt-4" disabled={busy || num == null} onClick={() => num != null && onSubmit(num)}>
         {isBook ? "이 페이지로 기록하기" : "이 강까지 기록하기"}
       </Button>
     </div>
@@ -201,7 +201,7 @@ function ReplanContent({
 
   return (
     <div className="text-center">
-      <div className="mx-auto flex size-14 items-center justify-center rounded-inner bg-primary-glass text-primary">
+      <div className="mx-auto flex size-14 items-center justify-center rounded-button bg-bg-regular text-icon-sub">
         <RotateCw size={26} />
       </div>
       <h2 className="mt-4 text-[20px] font-semibold">{title}</h2>
@@ -215,7 +215,7 @@ function ReplanContent({
 
       {!finished && !noDays && (
         <div className="mt-6 flex items-center gap-2">
-          <div className="flex-1 rounded-card bg-glass-sub py-4">
+          <div className="flex-1 rounded-card bg-bg-regular py-4">
             <p className="text-[12px] text-text-sub-weak">지금</p>
             <p className="mt-1 text-[20px] font-semibold">
               하루 {s.current_daily}
@@ -223,9 +223,9 @@ function ReplanContent({
             </p>
           </div>
           <ChevronRight className="shrink-0 text-icon-sub-weak" size={20} />
-          <div className="flex-1 rounded-card border border-glass-border-green bg-primary-glass py-4">
+          <div className="flex-1 rounded-card bg-primary-soft py-4 ring-1 ring-primary">
             <p className="text-[12px] text-text-sub-weak">{from}</p>
-            <p className="mt-1 text-[20px] font-semibold text-primary">
+            <p className="mt-1 text-[20px] font-semibold text-primary-text">
               하루 {s.new_daily}
               {unit}
             </p>

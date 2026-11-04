@@ -19,7 +19,7 @@ export default function MyPage() {
   return (
     <main className="px-5 pt-8">
       <div className="flex items-center gap-4">
-        <span className="flex size-14 items-center justify-center rounded-full border border-glass-border-green bg-primary-glass text-primary">
+        <span className="flex size-14 items-center justify-center rounded-full bg-primary-soft text-primary-text">
           <User size={26} />
         </span>
         <div>
@@ -34,7 +34,7 @@ export default function MyPage() {
         </div>
       )}
 
-      <section className="glass-card mt-6 p-5">
+      <section className="card mt-6 p-5">
         <div className="flex items-center justify-between">
           <h2 className="text-[17px] font-semibold">학습 통계</h2>
           <div className="flex gap-2">
@@ -51,7 +51,7 @@ export default function MyPage() {
           <>
             <p className="mt-4 text-[13px] text-text-sub">{period === "week" ? "이번 주 완수율" : "이번 달 완수율"}</p>
             <div className="flex items-baseline gap-2">
-              <p className="text-[40px] font-semibold text-primary">{s.rate}%</p>
+              <p className="text-[40px] font-semibold text-primary-text">{s.rate}%</p>
               <p className="text-[12px] text-text-sub">
                 {diff === 0 ? `${prevName}와 같아요` : `${prevName}보다 ${Math.abs(diff)}%p ${diff > 0 ? "올랐어요" : "내렸어요"}`}
               </p>
@@ -59,7 +59,7 @@ export default function MyPage() {
             <div className="mt-4 flex h-32 items-end justify-between gap-2">
               {s.bars.map((b) => (
                 <div key={b.label} className="flex h-full flex-1 flex-col items-center gap-2">
-                  <div className="relative w-full max-w-7 flex-1 overflow-hidden rounded-full bg-primary-glass">
+                  <div className="relative w-full max-w-7 flex-1 overflow-hidden rounded-full bg-bg-regular">
                     <div
                       className={cx("absolute inset-x-0 bottom-0 rounded-full", b.is_current ? "bg-primary" : "bg-primary/40")}
                       style={{ height: `${b.rate}%` }}
@@ -84,7 +84,7 @@ export default function MyPage() {
 
       <section className="mt-8">
         <h2 className="text-[17px] font-semibold">설정</h2>
-        <div className="glass-card mt-3 divide-y divide-line-regular px-5">
+        <div className="card mt-3 divide-y divide-line-regular px-5">
           <SettingRow icon={<Moon size={22} />} label="다크모드">
             <Toggle label="다크모드" on={settings.dark} onChange={(dark) => update({ dark })} />
           </SettingRow>
@@ -114,7 +114,7 @@ export default function MyPage() {
 
 function Total({ type, label, value }: { type: "book" | "lecture" | "routine"; label: string; value: string | null }) {
   return (
-    <div className="glass-card rounded-inner! p-4">
+    <div className="card rounded-button! p-4">
       <TypeIcon type={type} />
       <p className="mt-3 text-[12px] text-text-sub">{label}</p>
       {value === null ? <Bar className="mt-1.5 h-5 w-14" /> : <p className="text-[18px] font-semibold">{value}</p>}

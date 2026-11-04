@@ -74,14 +74,14 @@ function Calendar({ today }: { today: string }) {
         </div>
       </div>
 
-      <div className="mt-5 flex rounded-full bg-glass-sub p-1">
+      <div className="mt-5 flex rounded-full bg-bg-regular p-1">
         {(["month", "week"] as const).map((v) => (
           <button
             key={v}
             onClick={() => setView(v)}
             className={cx(
               "h-10 flex-1 rounded-full text-[14px] transition",
-              view === v ? "bg-bg-default font-semibold shadow-glass" : "text-text-sub",
+              view === v ? "bg-bg-default font-semibold shadow-1" : "text-text-sub",
             )}
           >
             {v === "month" ? "월간" : "주간"}
@@ -89,10 +89,10 @@ function Calendar({ today }: { today: string }) {
         ))}
       </div>
 
-      <section className="glass-card mt-5 px-3 py-5">
+      <section className="card mt-5 px-3 py-5">
         <div className="grid grid-cols-7 text-center text-[12px]">
           {HEAD.map((h, i) => (
-            <span key={h} className={i === 0 ? "text-[#F04438]" : "text-text-sub-weak"}>
+            <span key={h} className={i === 0 ? "text-status-error-text" : "text-text-sub-weak"}>
               {h}
             </span>
           ))}
@@ -108,9 +108,9 @@ function Calendar({ today }: { today: string }) {
                 <span
                   className={cx(
                     "flex size-9 items-center justify-center rounded-full text-[15px]",
-                    isSel && "bg-primary font-semibold text-white",
-                    !isSel && iso === today && "font-semibold text-primary",
-                    !isSel && iso !== today && (d.getDay() === 0 ? "text-[#F04438]" : past ? "text-text-disabled" : "text-text-main"),
+                    isSel && "bg-primary font-semibold text-text-on-primary",
+                    !isSel && iso === today && "font-semibold text-primary-text",
+                    !isSel && iso !== today && (d.getDay() === 0 ? "text-status-error-text" : past ? "text-text-disabled" : "text-text-main"),
                   )}
                 >
                   {d.getDate()}

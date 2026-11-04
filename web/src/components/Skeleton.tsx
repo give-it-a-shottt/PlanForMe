@@ -16,8 +16,8 @@ function Loading({ children, className }: { children: React.ReactNode; className
 /** 할 일 카드 모양 */
 export function TaskCardSkeleton() {
   return (
-    <div className="glass-card flex items-center gap-3 p-4">
-      <Bar className="size-11 rounded-inner" />
+    <div className="card flex items-center gap-3 p-4">
+      <Bar className="size-11 rounded-button" />
       <div className="flex-1 space-y-2">
         <Bar className="h-3 w-28" />
         <Bar className="h-4 w-40" />
@@ -43,9 +43,9 @@ export function PlanListSkeleton({ count = 3 }: { count?: number }) {
   return (
     <Loading className="space-y-3">
       {Array.from({ length: count }, (_, i) => (
-        <div key={i} className="glass-card p-5">
+        <div key={i} className="card p-5">
           <div className="flex items-center gap-3">
-            <Bar className="size-11 rounded-inner" />
+            <Bar className="size-11 rounded-button" />
             <div className="flex-1 space-y-2">
               <Bar className="h-3 w-20" />
               <Bar className="h-4 w-44" />
@@ -66,7 +66,7 @@ export function HomeSkeleton() {
       <Bar className="h-4 w-32" />
       <Bar className="mt-3 h-7 w-44" />
       <Bar className="mt-2 h-7 w-36" />
-      <div className="glass-card mt-6 p-5">
+      <div className="card mt-6 p-5">
         <div className="flex items-end justify-between">
           <div className="space-y-2">
             <Bar className="h-4 w-20" />
@@ -87,9 +87,9 @@ export function HomeSkeleton() {
 export function PlanDetailSkeleton() {
   return (
     <Loading className="space-y-4 px-5">
-      <div className="glass-card p-5">
+      <div className="card p-5">
         <div className="flex items-center gap-3">
-          <Bar className="size-11 rounded-inner" />
+          <Bar className="size-11 rounded-button" />
           <div className="flex-1 space-y-2">
             <Bar className="h-3 w-20" />
             <Bar className="h-5 w-48" />
@@ -100,7 +100,7 @@ export function PlanDetailSkeleton() {
       </div>
       <div className="grid grid-cols-3 gap-2">
         {[0, 1, 2].map((i) => (
-          <Bar key={i} className="h-20 rounded-inner" />
+          <Bar key={i} className="h-20 rounded-button" />
         ))}
       </div>
       <Bar className="h-36 rounded-card" />
@@ -125,7 +125,7 @@ export function StatsSkeleton() {
 
 export function PreviewSkeleton() {
   return (
-    <Loading className="glass-card p-6">
+    <Loading className="card p-6">
       <Bar className="h-4 w-20" />
       <Bar className="mt-3 h-12 w-24" />
       <Bar className="mt-3 h-3 w-40" />

@@ -37,7 +37,8 @@ function subscribe(cb: () => void) {
 }
 
 export function applyTheme(dark: boolean) {
-  document.documentElement.classList.toggle("dark", dark);
+  if (dark) document.documentElement.dataset.theme = "dark";
+  else delete document.documentElement.dataset.theme;
 }
 
 export function useSettings() {

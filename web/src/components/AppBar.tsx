@@ -19,7 +19,7 @@ export function AppBar({
   const router = useRouter();
   const Icon = icon === "close" ? X : ChevronLeft;
   return (
-    <header className="sticky top-0 z-20 flex h-14 items-center justify-between px-3 backdrop-blur-md">
+    <header className="sticky top-0 z-20 flex h-14 items-center justify-between bg-bg-light px-3">
       <button
         aria-label={icon === "close" ? "닫기" : "뒤로"}
         onClick={onBack ?? (() => (window.history.length > 1 ? router.back() : router.push("/")))}

@@ -4,16 +4,16 @@ import { Check, CircleAlert, Clock, RotateCw, type LucideIcon } from "lucide-rea
 import { AppBar } from "@/components/AppBar";
 import { TaskListSkeleton } from "@/components/Skeleton";
 import { useTaskActions } from "@/components/TaskActions";
-import { Empty, ErrorBox, cx } from "@/components/ui";
+import { Empty, ErrorBox } from "@/components/ui";
 import { api, useApi } from "@/lib/api";
 import { useSettings } from "@/lib/settings";
 import type { Notification } from "@/lib/types";
 
-const KIND: Record<Notification["kind"], { label: string; icon: LucideIcon; green: boolean }> = {
-  replan: { label: "재계산 제안", icon: RotateCw, green: true },
-  reminder: { label: "리마인더", icon: Clock, green: true },
-  achieved: { label: "달성", icon: Check, green: false },
-  missed: { label: "미달성", icon: CircleAlert, green: false },
+const KIND: Record<Notification["kind"], { label: string; icon: LucideIcon }> = {
+  replan: { label: "재계산 제안", icon: RotateCw },
+  reminder: { label: "리마인더", icon: Clock },
+  achieved: { label: "달성", icon: Check },
+  missed: { label: "미달성", icon: CircleAlert },
 };
 
 export default function NotificationsPage() {
@@ -48,13 +48,8 @@ export default function NotificationsPage() {
                     const k = KIND[n.kind];
                     const Icon = k.icon;
                     return (
-                      <div key={i} className="glass-card flex gap-3 p-4">
-                        <span
-                          className={cx(
-                            "flex size-10 shrink-0 items-center justify-center rounded-inner",
-                            k.green ? "bg-primary-glass text-primary" : "bg-bg-regular text-icon-sub",
-                          )}
-                        >
+                      <div key={i} className="card flex gap-3 p-4">
+                        <span className="flex size-10 shrink-0 items-center justify-center rounded-button bg-bg-regular text-icon-sub">
                           <Icon size={20} />
                         </span>
                         <div className="min-w-0 flex-1">
@@ -67,7 +62,7 @@ export default function NotificationsPage() {
                           {n.kind === "replan" && n.plan_id && (
                             <button
                               onClick={() => actions.openReplan(n.plan_id!)}
-                              className="mt-3 rounded-full border border-glass-border-green bg-primary-glass px-4 py-2 text-[13px] font-semibold"
+                              className="mt-3 rounded-full bg-bg-inverse px-4 py-2 text-[13px] font-semibold text-text-inverse"
                             >
                               지금 재계산하기
                             </button>
